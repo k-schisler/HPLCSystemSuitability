@@ -1,0 +1,173 @@
+# TM 395
+
+Sub standards_395()
+
+Application.ScreenUpdating = FALSE
+Application.DisplayAlerts = FALSE
+
+Range("H4").Value = ""
+Range("H5").Value = ""
+Range("O4").Value = ""
+Range("O5").Value = ""
+Range("V4").Value = ""
+Range("V5").Value = ""
+Range("ad4").Value = ""
+Range("ad5").Value = ""
+Range("al4").Value = ""
+Range("al5").Value = ""
+
+Range("f21").Value = ""
+Range("ao21").Value = ""
+
+Range("G46").Value = ""
+Range("AS46").Value = ""
+Range("Q46").Value = ""
+Range("BC46").Value = ""
+Range("L42").Value = ""
+
+Range("ad2").Value = Now()
+
+On Error Resume Next
+
+Range("aw2").Value = InputBox("Please Type in the serial number of the column used", "Column Serial#")
+Range("bs2").Value = InputBox("Please Type in the NPAR of the Mobile Phase", "Mobile Phase NPAR")
+Range("f21").Value = InputBox("Please Type in the weight of Phenoxyethanol used in the stock standard",
+"PE Stock Standard Weight")
+Range("ao21").Value = InputBox("Please Type in the weight of Sodium Benzoate used in the stock standard",
+"NaB Stock Standard Weight")
+Range("o21").Value = InputBox("Please Type in the purity of the Phenoxyethanol", "PE Purity")
+Range("ax21").Value = InputBox("Please Type in the purity of the Sodium Benzoate", "NAB Purity")
+Dim sFound As String
+Dim sfound2 As String
+hplcnum = Mid(Right(ActiveSheet.Name, 3), 2, 1)
+yearnum = Year(Now)
+datenum = Format(Now, "mmddyy")
+
+ChDrive "C:"
+ChDir "C:\TC Data\Data\HPLC " & hplcnum & "\TM 395\" & yearnum & "\"
+ChDir "C:\TC Data\Data\HPLC " & hplcnum & "\TM 395\" & yearnum & "\" & datenum & "\"
+fpatharray = Application.GetOpenFilename(FileFilter:="All Files,*.tx0", Title:="Select file", MultiSelect:=True)
+
+On Error GoTo skippy1
+Do Until i = 5
+  For i = 1 To 5
+    Workbooks.Open Filename:=fpatharray(i)
+    Cells.Find(What:="""PE""", After:=ActiveCell, LookIn:=xlFormulas, LookAt:=xlPart, SearchOrder: =xlByRows, SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False).Activate
+    phenoxyinfo = Split(ActiveCell.Value, ",")
+    phenoxyareas = phenoxyinfo(3)
+    Cells.Find(What:="""NaB""", After:=ActiveCell, LookIn:=xlFormulas, LookAt:=xlPart, SearchOrder:=xlByRows, SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False).Activate
+    NaBinfo = Split(ActiveCell.Value, ",")
+    NaBareas = NaBinfo(3)
+    ActiveWorkbook.Close
+    Workbooks("System Suitability - COPY For TESTING.xlsb").Activate
+  
+    Cells(4, ((i * 8) + 1)).Select
+    ActiveCell.Value = phenoxyareas
+    Cells(5, ((i * 8) + 1)).Select
+    ActiveCell.Value = NaBareas
+    If i = 5 Then GoTo skippy2
+  Next i
+Loop
+skippy2:
+
+Range("CB1").Select
+Selection.End(xlDown).Select
+ActiveCell.Offset(1, 0).Select
+ActiveCell.Value = Date
+ActiveCell.Offset(0, 1).Value = Range("Y35").Value
+ActiveCell.Offset(0, 2).Value = Range("BH35").Value
+
+ActiveWorkbook.Save
+ActiveWorkbook.PrintPreview
+skippy1:
+Application.DisplayAlerts = TRUE
+System Suitability spreadsheet
+
+Application.DisplayAlerts = TRUE
+Application.ScreenUpdating = TRUE
+End Sub
+
+# TM 394
+
+Sub standards_394()
+Application.ScreenUpdating = FALSE
+Application.DisplayAlerts = FALSE
+'Range("M4:AB8").Select
+Range("m4:ab8").Value = ""
+Range("J40").Value = ""
+Range("F43").Value = ""
+Range("AV43").Value = ""
+Range("H52").Value = ""
+Range("P43").Value = ""
+Range("BF43").Value = ""
+Range("R52").Value = ""
+Range("BF11").Value = ""
+Range("BF12").Value = ""
+
+Range("bf10").Value = Now()
+
+On Error Resume Next
+
+Range("bf11").Value = InputBox("Please Type in the serial number of the column used", "Column Serial#")
+Range("bf12").Value = InputBox("Please Type in the NPAR of the Mobile Phase", "Mobile Phase NPAR")
+Range("g17").Value = InputBox("Please Type in the weight of Phenoxyethanol used in the stock standard",
+"Phenoxyethanol Stock Standard Weight")
+Range("an17").Value = InputBox("Please Type in the weight of Sodium Benzoate used in the stock standard",
+"Sodium Benzoat Stock Standard Weight")
+Range("bs17").Value = InputBox("Please Type in the weight of DHA used in the stock standard", "DHA Stock
+Standard Weight")
+Range("o17").Value = InputBox("Please Type in the purity of the Phenoxyethanol", "PE Purity")
+Range("av17").Value = InputBox("Please Type in the purity of the Sodium Benzoate", "NAB Purity")
+Range("ca17").Value = InputBox("Please Type in the purity of the DHA", "DHA Purity")
+Dim sFound As String
+Dim sfound2 As String
+hplcnum = Mid(Right(ActiveSheet.Name, 3), 2, 1)
+yearnum = Year(Now)
+datenum = Format(Now, "mmddyy")
+
+ChDrive "C:"
+ChDir "C:\TC Data\Data\HPLC " & hplcnum & "\TM 394\" & yearnum & "\"
+ChDir "C:\TC Data\Data\HPLC " & hplcnum & "\TM 394\" & yearnum & "\" & datenum & "\"
+fpatharray = Application.GetOpenFilename(FileFilter:="All Files,*.tx0", Title:="Select file", MultiSelect:=True)
+
+On Error GoTo skippy1
+Do Until i = 5
+  For i = 1 To 5
+    Workbooks.Open Filename:=fpatharray(i)
+    Cells.Find(What:="""PE""", After:=ActiveCell, LookIn:=xlFormulas, LookAt:=xlPart, SearchOrder: =xlByRows, SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False).Activate
+    binfo = Split(ActiveCell.Value, ",")
+    bareas = binfo(3)
+    Cells.Find(What:="""NaB""", After:=ActiveCell, LookIn:=xlFormulas, LookAt:=xlPart, SearchOrder: =xlByRows, SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False).Activate
+    minfo = Split(ActiveCell.Value, ",")
+    mareas = minfo(3)
+    Cells.Find(What:="""DHA""", After:=ActiveCell, LookIn:=xlFormulas, LookAt:=xlPart, SearchOrder: =xlByRows, SearchDirection:=xlNext, MatchCase:=False, SearchFormat:=False).Activate
+    pinfo = Split(ActiveCell.Value, ",")
+    pareas = pinfo(3)
+    ActiveWorkbook.Close
+    Workbooks("System Suitability - COPY For TESTING.xlsb").Activate
+    Cells(3 + i, 13).Select
+    ActiveCell.Value = bareas
+    Cells(3 + i, 20).Select
+    ActiveCell.Value = mareas
+    Cells(3 + i, 28).Select
+    ActiveCell.Value = pareas
+    If i = 5 Then GoTo skippy2
+  Next i
+Loop
+skippy2:
+
+Range("DB1").Select
+Selection.End(xlDown).Select
+ActiveCell.Offset(1, 0).Select
+ActiveCell.Value = Date
+ActiveCell.Offset(0, 1).Value = Range("X33").Value
+ActiveCell.Offset(0, 2).Value = Range("BD33").Value
+ActiveCell.Offset(0, 3).Value = Range("CJ33").Value
+
+ActiveWorkbook.Save
+ActiveWorkbook.PrintPreview
+
+skippy1:
+Application.DisplayAlerts = TRUE
+Application.ScreenUpdating = TRUE
+End Sub
